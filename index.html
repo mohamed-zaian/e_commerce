@@ -1,1 +1,45 @@
-;
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/register.css">
+    <title>Rymo</title>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Create Account</h2>
+        <form>
+            <input id="username" type="text" name="username" placeholder="Username" required />
+            <div id="div_name" style="display: none;"></div>
+
+            <input id="email" type="text" name="email" placeholder="Email" required />
+            <div id="div_email" style="display: none;"></div>
+
+            <div class="password-container">
+                <input id="password" type="password" name="password" placeholder="Password" required />
+                <span id="togglePassword" class="eye">👁️</span>
+            </div>
+
+            <div class="password-container">
+                <input id="confirm" type="password" name="confirm" placeholder="Confirm Password" required />
+                <span id="toggleConfirm" class="eye">👁️</span>
+            </div>
+            <div id="div_confirm" style="display: none; color: red; font-size: 14px;"></div>
+
+
+
+
+            <button id="btn_submit" type="button">Create Account</button>
+        </form>
+
+        <p class="form-note">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+
+    <script src="/js/register.js"></script>
+    <!-- <script src="sweetalert2.all.min.js"></script>   -->
+</body>
+
+</html>
