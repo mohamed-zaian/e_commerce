@@ -1,4 +1,75 @@
-// =============== متغيرات عامة ===============
+// =============== Slider ===============
+let slider = document.getElementById("slider");
+let sliderTitle = document.getElementById("sliderTitle");
+let sliderText = document.getElementById("sliderText");
+
+let sliderBtn = document.getElementById("sliderBtn");
+let img = document.querySelector(".img-fluid");
+console.log(img);
+
+let sliderarr = [
+  {
+    image: "img/banner/pexels-kampus-7289723.jpg",
+    title: "Welcome to Rymo",
+    text: "Your favorite meals delivered right to your doorstep. Explore our menu and order now!",
+    button: "Order Now",
+  },
+  {
+    image: "img/banner/pexels-tuan-vy-903011268-33593380.jpg",
+    title: "Fresh & Delicious",
+    text: "We serve only the freshest ingredients to make every meal unforgettable.",
+  },
+
+
+  {
+    image: "img/banner/pexels-max-fischer-5869617.jpg",
+    title: "Special Offers",
+    text: "Enjoy exclusive discounts and deals on your favorite meals today!",
+  },
+];
+
+let currentindex = 0;
+
+// ...existing code...
+function updateContent(index) {
+  sliderTitle.style.opacity = 0;
+  sliderText.style.opacity = 0;
+  sliderBtn.style.opacity = 0;
+
+  setTimeout(() => {
+    slider.style.backgroundImage = `url(${sliderarr[index].image})`;
+    slider.style.height = "60vh";
+    slider.style.backgroundRepeat = "no-repeat";
+    slider.style.backgroundSize = "cover";
+    sliderTitle.textContent = sliderarr[index].title;
+    sliderText.textContent = sliderarr[index].text;
+
+    if (sliderarr[index].button) {
+      sliderBtn.textContent = sliderarr[index].button;
+      sliderBtn.style.display = "inline-block";
+    } else {
+      sliderBtn.style.display = "none";
+    }
+
+    sliderTitle.style.opacity = 1;
+    sliderText.style.opacity = 1;
+    sliderBtn.style.opacity = 1;
+  }, 1000);
+}
+setInterval(() => {
+  currentindex = (currentindex + 1) % sliderarr.length;
+  updateContent(currentindex);
+}, 2000);
+
+updateContent(currentindex);
+
+sliderBtn.addEventListener("click", () => {
+  let targetSection = document.getElementById("meals");
+  targetSection.scrollIntoView({ behavior: "smooth" });
+});
+
+updateContent(currentindex);
+
 let products = []; // هنا هيتخزن الداتا كلها
 let badge = document.getElementById("cartBadge");
 
