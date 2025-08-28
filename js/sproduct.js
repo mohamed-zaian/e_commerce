@@ -50,7 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let cart = loginUser.cart || [];
 
     let existingProduct = cart.find((item) => item.id === product.id);
-    if (existingProduct) {
+        if (existingProduct) {
+            
+        Swal.fire({
+          title: `${product.title} is already added to cart! the quantity has been increased.`,
+          icon: "success",
+          draggable: true,
+        });
+        
       existingProduct.quantity += 1;
     } else {
       cart.push({
@@ -65,6 +72,10 @@ document.addEventListener("DOMContentLoaded", () => {
     loginUser.cart = cart;
     localStorage.setItem("loginUser", JSON.stringify(loginUser));
 
-    alert(`${product.title} added to cart!`);
+        Swal.fire({
+          title: `${product.title} added to cart!`,
+          icon: "success",
+          draggable: true,
+        });
   });
 });

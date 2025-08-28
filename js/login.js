@@ -55,7 +55,11 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
   }
 
   // ✅ Login success
-  swal("Login Successful!", "Welcome back 👋", "success");
+Swal.fire({
+  title: "Login Successful!",
+  icon: "success",
+  draggable: true
+});
 
   localStorage.setItem("loginUser", JSON.stringify(user));
 

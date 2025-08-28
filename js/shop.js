@@ -70,6 +70,8 @@ function displayProduct(productArr) {
 // =============== Add to Cart ===============
 function addToCart(productId, productArr) {
   let loginUser = JSON.parse(localStorage.getItem("loginUser")) || {};
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
   let cart = loginUser.cart || [];
 
   let newProduct = productArr.find((p) => p.id == productId);
@@ -78,6 +80,11 @@ function addToCart(productId, productArr) {
   let existingProduct = cart.find((item) => item.id === newProduct.id);
   if (existingProduct) {
     existingProduct.quantity += 1;
+    Swal.fire({
+      title: `${newProduct.title} is already in cart! Quantity increased.`,
+      icon: "success",
+      draggable: true,
+    });
   } else {
     cart.push({
       id: newProduct.id,
@@ -86,10 +93,24 @@ function addToCart(productId, productArr) {
       images: newProduct.images,
       quantity: 1,
     });
+    Swal.fire({
+      title: `${newProduct.title} added to cart!`,
+      icon: "success",
+      draggable: true,
+    });
   }
 
   loginUser.cart = cart;
   localStorage.setItem("loginUser", JSON.stringify(loginUser));
+
+  // ✅ تحديث الـ users list كمان
+  let updatedUsers = users.map((user) => {
+    if (user.email === loginUser.email) {
+      return loginUser;
+    }
+    return user;
+  });
+  localStorage.setItem("users", JSON.stringify(updatedUsers));
 
   // تحديث البادج
   badge.textContent = cart.length;
@@ -122,4 +143,18 @@ select.addEventListener("change", function () {
     let filtered = products.filter((p) => p.category === selectedValue);
     displayProduct(filtered);
   }
+});
+
+// =============== Sign Out ===============
+let signOutBtn = document.getElementById("signOut");
+
+signOutBtn.addEventListener("click", () => {
+  localStorage.removeItem("loginUser");
+
+  // امسح الـ history وبدل الصفحة بالـ login
+  window.location.replace("login.html");
+  history.pushState(null, "", "login.html");
+  window.onpopstate = function () {
+    history.go(1); // يمنع الـ back
+  };
 });

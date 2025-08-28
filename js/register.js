@@ -82,38 +82,19 @@ btn_submit.addEventListener("click", () => {
   let confirmPassword = confirmInput.value;
   let cart = [];
 
-  // Check username
-  if (!usernameRegex.test(userName)) {
-    alert("❌ Invalid username!");
-    return;
-  }
-
-  // Check email
-  if (!emailRegex.test(email)) {
-    alert("❌ Invalid email!");
-    return;
-  }
-
-  // Check password strength
-  if (!passRegex.test(password)) {
-    alert(
-      "❌ Weak password! Must be 8+ chars with upper, lower, number & special."
-    );
-    return;
-  }
-
-  // Confirm password match
-  if (password !== confirmPassword) {
-    alert("❌ Passwords do not match!");
-    return;
-  }
+  
+ 
 
   // Check if user already exists
   let users = JSON.parse(localStorage.getItem("users")) || [];
   let exists = users.some((user) => user.email === email);
 
   if (exists) {
-    alert("❌ This email is already registered!");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "❌ This email is already registered!",
+    });
     return;
   }
 
@@ -123,7 +104,7 @@ btn_submit.addEventListener("click", () => {
   localStorage.setItem("users", JSON.stringify(users));
 
   Swal.fire({
-    title: "Login successful",
+    title: "Make New account successful",
     icon: "success",
     draggable: true,
   });

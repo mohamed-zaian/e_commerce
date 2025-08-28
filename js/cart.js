@@ -1,5 +1,6 @@
+// ===================== متغيرات عامة =====================
 let loginUser = JSON.parse(localStorage.getItem("loginUser")) || { cart: [] };
-let cart = loginUser.cart;
+let cart = loginUser.cart || [];
 
 let productRow = document.querySelector(".table-body");
 let emptyCartMessage = document.getElementById("empty-cart-message");
@@ -7,12 +8,45 @@ let subtotalEl = document.getElementById("subtotal");
 let shippingEl = document.querySelector(".shopping");
 let grandTotalEl = document.getElementById("total");
 let buttonBuy = document.querySelector(".button-buy");
+let couponBtn = document.querySelector(".coupon-btn");
+let couponInput = document.querySelector(".coupon-input");
 
+let discountActive = false; // لتفعيل الخصم
+
+// ===================== وظيفة تطبيق الكوبون =====================
+function applyCoupon() {
+  if (couponInput.value.trim() === "Mohamed14") {
+    discountActive = true;
+    Swal.fire({
+      icon: "success",
+      title: "Coupon applied!",
+      text: "You got 10% off",
+    });
+    updateSummary();
+  } else {
+    discountActive = false;
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "This coupon is not valid",
+    });
+  }
+}
+
+couponBtn.addEventListener("click", applyCoupon);
+
+// ===================== تحديث الـ summary =====================
 function updateSummary() {
   let subtotal = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+  if (discountActive) {
+    subtotal *= 0.9;
+    couponInput.value = "";
+  }
+
   subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
 
   let shipping = cart.length > 0 ? 15 : 0;
@@ -21,11 +55,13 @@ function updateSummary() {
   grandTotalEl.textContent = `$${(subtotal + shipping).toFixed(2)}`;
 }
 
+// ===================== عرض الكارت =====================
 function renderCart() {
   if (cart.length === 0) {
     productRow.innerHTML = "";
     emptyCartMessage.innerHTML = `<h3 class="text-center my-5">🛒 Cart is empty</h3>`;
     updateSummary();
+    toggleBuyButton();
     return;
   }
 
@@ -35,7 +71,7 @@ function renderCart() {
       (item, index) => `
     <tr>
       <td>
-        <button  class="btn-remove" data-index="${index}">
+        <button class="btn-remove" data-index="${index}">
           <i class="fas fa-trash-alt"></i>
         </button>
       </td>
@@ -43,7 +79,7 @@ function renderCart() {
       <td><h5>${item.title}</h5></td>
       <td><h5>$${item.price}</h5></td>
       <td>
-        <input  class="w-25 ps-1 quantity-input" 
+        <input class="w-25 ps-1 quantity-input" 
                data-index="${index}" 
                value="${item.quantity}" 
                type="number" min="1" />
@@ -56,7 +92,7 @@ function renderCart() {
     )
     .join("");
 
-  // زرار الحذف
+  // ===================== حذف عنصر =====================
   document.querySelectorAll(".btn-remove").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       let index = e.target.closest("button").dataset.index;
@@ -64,10 +100,11 @@ function renderCart() {
       loginUser.cart = cart;
       localStorage.setItem("loginUser", JSON.stringify(loginUser));
       renderCart();
+      updateBadge();
     });
   });
 
-  // تغيير الكمية
+  // ===================== تعديل الكمية =====================
   document.querySelectorAll(".quantity-input").forEach((input) => {
     input.addEventListener("change", (e) => {
       let index = e.target.dataset.index;
@@ -78,15 +115,15 @@ function renderCart() {
       loginUser.cart = cart;
       localStorage.setItem("loginUser", JSON.stringify(loginUser));
       renderCart();
+      updateBadge();
     });
   });
 
   updateSummary();
+  toggleBuyButton();
 }
 
-// أول ما الصفحة تفتح
-renderCart();
-toggleBuyButton();
+// ===================== تفعيل/تعطيل زر Buy =====================
 function toggleBuyButton() {
   if (cart.length === 0) {
     buttonBuy.disabled = true;
@@ -96,6 +133,16 @@ function toggleBuyButton() {
     buttonBuy.classList.remove("disabled");
   }
 }
+
+// ===================== تحديث البادج =====================
+let badge = document.getElementById("cartBadge");
+function updateBadge() {
+  let loginUser = JSON.parse(localStorage.getItem("loginUser")) || { cart: [] };
+  let cart = loginUser.cart || [];
+  badge.textContent = cart.length;
+}
+
+// ===================== شراء =====================
 buttonBuy.addEventListener("click", () => {
   Swal.fire({
     title: "Proceed successfully!",
@@ -106,5 +153,10 @@ buttonBuy.addEventListener("click", () => {
     loginUser.cart = [];
     localStorage.setItem("loginUser", JSON.stringify(loginUser));
     renderCart();
+    updateBadge();
   });
 });
+
+// ===================== أول ما الصفحة تفتح =====================
+renderCart();
+updateBadge();
