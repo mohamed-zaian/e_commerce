@@ -48,10 +48,13 @@ btn.addEventListener("click", () => {
     passDiv.style.color = "red";
     return;
   }
-
-  alert("✅ Login successful");
+Swal.fire({
+  title: "Login successful",
+  icon: "success",
+  draggable: true,
+});
 
   localStorage.setItem("loginUser", JSON.stringify(user));
 
-  window.location.replace("/home.html");
-});
+  window.location.replace("/shop.html");
+});home
