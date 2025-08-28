@@ -97,16 +97,22 @@ btn_submit.addEventListener("click", () => {
     });
     return;
   }
+  else
+    
+    {Swal.fire({
+      title: "Make New account successful",
+      icon: "success",
+      draggable: true,
+    });
 
   // Save new user
   let newUser = { userName, email, password, cart };
   users.push(newUser);
-  localStorage.setItem("users", JSON.stringify(users));
-
-  Swal.fire({
-    title: "Make New account successful",
-    icon: "success",
-    draggable: true,
-  });
-  window.location.href = "login.html";
+    localStorage.setItem("users", JSON.stringify(users));
+    setTimeout(()=>
+      {
+    window.location.href = "login.html";
+      
+      }, 500)
+  }
 });
