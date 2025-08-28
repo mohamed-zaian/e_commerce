@@ -122,6 +122,10 @@ btn_submit.addEventListener("click", () => {
   users.push(newUser);
   localStorage.setItem("users", JSON.stringify(users));
 
-  alert("✅ Successfully Registered!");
+  Swal.fire({
+    title: "Login successful",
+    icon: "success",
+    draggable: true,
+  });
   window.location.href = "login.html";
 });

@@ -1,3 +1,7 @@
+// =============== متغيرات عامة ===============
+let products = []; // هنا هيتخزن الداتا كلها
+let badge = document.getElementById("cartBadge");
+
 // =============== Get Products from API ===============
 async function getPosts() {
   try {
@@ -40,7 +44,7 @@ function displayProduct(productArr) {
   // كليك على الكارت يفتح صفحة التفاصيل
   document.querySelectorAll(".product-card").forEach((card) => {
     card.addEventListener("click", (e) => {
-      if (e.target.classList.contains("add-to-cart")) return; // مايفتحش لو ضغطت الزرار
+      if (e.target.classList.contains("add-to-cart")) return;
       const productId = card.getAttribute("data-id");
       const selectedProduct = productArr.find((p) => p.id == productId);
       if (selectedProduct) {
@@ -86,12 +90,36 @@ function addToCart(productId, productArr) {
 
   loginUser.cart = cart;
   localStorage.setItem("loginUser", JSON.stringify(loginUser));
+
+  // تحديث البادج
+  badge.textContent = cart.length;
+}
+
+// =============== Update Cart Badge ===============
+function updateBadge() {
+  let loginUser = JSON.parse(localStorage.getItem("loginUser")) || {};
+  let cart = loginUser.cart || [];
+  badge.textContent = cart.length;
 }
 
 // =============== Main ===============
 document.addEventListener("DOMContentLoaded", async () => {
-  const products = await getPosts();
+  products = await getPosts();
   if (products) {
     displayProduct(products);
+    updateBadge();
+  }
+});
+
+// =============== Filter by Category ===============
+let select = document.getElementById("categoryFilter");
+
+select.addEventListener("change", function () {
+  let selectedValue = select.value;
+  if (selectedValue === "All") {
+    displayProduct(products);
+  } else {
+    let filtered = products.filter((p) => p.category === selectedValue);
+    displayProduct(filtered);
   }
 });

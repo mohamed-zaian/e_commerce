@@ -1,37 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/login.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="style/login.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css" />
 </head>
+
 <body>
-    
     <div class="login-container">
         <h2>Login</h2>
-        <form>
+        <form id="loginForm">
             <input id="email" type="text" placeholder="Email" required />
-            <div id="email_div" style="display: none;">this Email is not valid</div>
+            <div id="email_div" style="display: none"></div>
 
-             <div class="password-container">
-        <input id="password" type="password" name="password" placeholder="Password" required />
-        <span id="togglePassword" class="eye">👁️</span>
-    </div>
+            <div class="password-container">
+                <input id="password" type="password" name="password" placeholder="Password" required />
+                <span id="togglePassword" class="eye">👁️</span>
+            </div>
             <div id="password_div"></div>
-            
 
-            <button id= 'btn' type="button">Login</button>
+            <button id="btn" type="submit">Login</button>
         </form>
     </div>
 
-
-
-
-
-
-
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="js/login.js"></script>
 </body>
+
 </html>
