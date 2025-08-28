@@ -49,9 +49,15 @@
         background-color: coral;
         color: white;
       }
-      .pagination a {
-        color: black;
+      body{
+          padding-top: 80px; 
+
       }
+      #categoryFilter {
+  margin-top: 80px; /* جرّب تزود القيمة حسب ارتفاع الـ navbar */
+}
+    
+    
     </style>
   </head>
   <body>
@@ -85,18 +91,41 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
             </li>
-            <li class="nav-item">
+            
+            <li class="nav-item position-relative">
               <i class="fa-solid fa-magnifying-glass"></i>
-              <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+              <a href="cart.html" class="position-relative">
+                <i class="fa-solid fa-bag-shopping fs-4"></i>
+                <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  
+                </span>
+              </a>
             </li>
+            <li id="signOut-btn" class="nav-item ms-5 bg-dark rounded px-3 py-3">
+              <a class="nav-link text-white" href="#">Sign out</a>
+            </li>
+
           </ul>
         </div>
       </div>
     </nav>
+      <select id="categoryFilter" class="form-select mb-1 ms-auto me-auto" style="max-width:250px;">
+        <option value="All">All Categories</option>
+        <option value="beauty">Beauty</option>
+        <option value="furniture">Furniture</option>
+        <option value="groceries">Groceries</option>
+        <option value="kitchen-accessories">Kitchen Accessories</option>
+        <option value="laptops">Laptops</option>
+        <option value="mens-shirts">Mens Shirts</option>
+        <option value="mens-shoes">Mens Shoes</option>
+        <option value="mens-watches">Mens Watches</option>
+        <option value="mobile-accessories">Mobile Accessories</option>
+
+      </select>
 
     <!-- Products -->
-    <section id="featured" class="my-5 py-5">
-      <div class="container mt-5 py-5">
+    <section id="featured" class="my-1 py-5">
+      <div class="container mt-2 py-5">
         <h2 class="font-weight-bold">Our Featured</h2>
         <hr />
         <p>Here you can check out our products with fair price on rymo.</p>
@@ -106,32 +135,7 @@
           onclick="window.location.href='sproduct.html'"
           class="product text-center col-lg-3 col-md-4 col-12"
         >
-          <img class="img-fluid mb-3" src="img/shop/1.jpg" alt="" />
-          <div class="star">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-          </div>
-          <h5 class="p-name">Cartoon Astronaut T-Shirts</h5>
-          <h4 class="p-price">$92.00</h4>
-          <button class="buy-btn">Buy Now</button>
-        </div>
-
-        <div class="product text-center col-lg-3 col-md-4 col-12">
-          <img class="img-fluid mb-3" src="img/shop/2.jpg" alt="" />
-          <div class="star">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-          </div>
-          <h5 class="p-name">Cartoon Astronaut T-Shirts</h5>
-          <h4 class="p-price">$92.00</h4>
-          <button class="buy-btn">Buy Now</button>
-        </div>
+        
 
      
 
