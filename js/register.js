@@ -35,6 +35,7 @@ toggleConfirm.addEventListener("click", () => {
 });
 emailInput.addEventListener("input", () => {
   if (!emailRegex.test(emailInput.value.trim())) {
+    div_email.innerText = "❌ Invalid email";
     div_email.style.display = "block";
     div_email.style.color = "red";
   } else {
@@ -45,6 +46,7 @@ emailInput.addEventListener("input", () => {
 
 userNameInput.addEventListener("input", () => {
   if (!usernameRegex.test(userNameInput.value.trim())) {
+    div_name.innerText = "❌ Invalid username!";
     div_name.style.display = "block";
     div_name.style.color = "red";
   } else {
@@ -81,6 +83,24 @@ btn_submit.addEventListener("click", () => {
   let password = passwordInput.value;
   let confirmPassword = confirmInput.value;
   let cart = [];
+if (!usernameRegex.test(userName)) {
+  alert("❌ Invalid username!");
+  return;
+}
+
+// Check email
+if (!emailRegex.test(email)) {
+  alert("❌ Invalid email!");
+  return;
+}
+
+// Check password strength
+if (!passRegex.test(password)) {
+  alert(
+    "❌ Weak password! Must be 8+ chars with upper, lower, number & special."
+  );
+  return;
+}
 
   
  
